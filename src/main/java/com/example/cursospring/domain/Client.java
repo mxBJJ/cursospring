@@ -2,21 +2,29 @@ package com.example.cursospring.domain;
 
 import com.example.cursospring.domain.enums.ClientType;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 public class Client implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private  String email;
     private String cpfOrCnpj;
     private Integer type;
 
+   @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Adress> adresses = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "phone")
     private Set<String> phones = new HashSet<>();
 
     public Client() {

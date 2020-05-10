@@ -1,8 +1,14 @@
 package com.example.cursospring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 public class Adress implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String street;
     private String number;
@@ -10,8 +16,13 @@ public class Adress implements Serializable {
     private String neighborhood;
     private String postlCode;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 
 
