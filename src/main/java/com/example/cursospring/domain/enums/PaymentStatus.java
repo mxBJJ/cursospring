@@ -1,18 +1,21 @@
 package com.example.cursospring.domain.enums;
 
-public enum ClientType {
-    PESSOA_FISICA(1, "Pessoa Física"),
-    PESSOA_JURIDICA(2, "Pessoa Jurídica");
+public enum PaymentStatus {
 
-    private int cod;
+    PENDENTE(1, "PENDENTE"),
+    QUITADO(2,"QUITADO"),
+    CANCELADO(3, "CANCELADO");
+
+    private Integer cod;
     private String description;
 
-    ClientType(int cod, String description) {
+
+    PaymentStatus(Integer cod, String description) {
         this.cod = cod;
         this.description = description;
     }
 
-    public int getCod() {
+    public Integer getCod() {
         return cod;
     }
 
@@ -20,22 +23,16 @@ public enum ClientType {
         return description;
     }
 
-    public static ClientType toEnum(Integer cod) {
-        if(cod == null)
-        {
+    public PaymentStatus toEnum(){
+        if(cod == null){
             return null;
         }
 
-        for(ClientType x : ClientType.values()) {
+        for(PaymentStatus x : PaymentStatus.values()){
             if(cod.equals(x.getCod())){
                 return x;
             }
         }
-
         throw new IllegalArgumentException("Invalid code: " + cod);
     }
 }
-
-
-
-    

@@ -1,6 +1,7 @@
 package com.example.cursospring.domain;
 
 import com.example.cursospring.domain.enums.ClientType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,12 +21,15 @@ public class Client implements Serializable {
     private String cpfOrCnpj;
     private Integer type;
 
-   @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Adress> adresses = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "phone")
     private Set<String> phones = new HashSet<>();
+
+    private List<Order> orders = new ArrayList<>();
 
     public Client() {
     }
@@ -92,5 +96,17 @@ public class Client implements Serializable {
 
     public void setPhones(Set<String> phones) {
         this.phones = phones;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

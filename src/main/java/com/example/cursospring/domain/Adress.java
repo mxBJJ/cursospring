@@ -1,5 +1,6 @@
 package com.example.cursospring.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,9 +15,9 @@ public class Adress implements Serializable {
     private String number;
     private String complement;
     private String neighborhood;
-    private String postlCode;
+    private String postalCode;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -24,7 +25,6 @@ public class Adress implements Serializable {
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
-
 
     public Adress() {
     }
@@ -35,7 +35,7 @@ public class Adress implements Serializable {
         this.number = number;
         this.complement = complement;
         this.neighborhood = neighborhood;
-        this.postlCode = postlCode;
+        this.postalCode = postlCode;
         this.client = client;
         this.city = city;
     }
@@ -81,11 +81,11 @@ public class Adress implements Serializable {
     }
 
     public String getPostlCode() {
-        return postlCode;
+        return postalCode;
     }
 
     public void setPostlCode(String postlCode) {
-        this.postlCode = postlCode;
+        this.postalCode = postlCode;
     }
 
     public Client getClient() {
