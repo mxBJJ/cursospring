@@ -1,17 +1,21 @@
 package com.example.cursospring.domain;
 
 import com.example.cursospring.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Payment implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Payment implements Serializable {
 
         @Id
         private Integer id;
+
         private PaymentStatus paymentStatus;
 
+        @JsonBackReference
         @OneToOne
         @JoinColumn(name = "order_id")
         @MapsId

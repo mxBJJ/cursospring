@@ -1,12 +1,18 @@
 package com.example.cursospring.domain;
 
 import com.example.cursospring.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class BankSlipPayment extends Payment{
 
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dueDate;
+
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date payday;
 
 
