@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="orders")
@@ -31,6 +33,10 @@ public class Order implements Serializable {
         @ManyToOne
         @JoinColumn(name = "adress_delivery_id")
         private Adress deliveryAdress;
+
+
+        @OneToMany(mappedBy = "orderItemPK.order")
+        private Set<OrderItem> orderItems = new HashSet<>();
 
         public Order() {
         }
@@ -82,6 +88,14 @@ public class Order implements Serializable {
 
         public void setDeliveryAdress(Adress deliveryAdress) {
                 this.deliveryAdress = deliveryAdress;
+        }
+
+        public Set<OrderItem> getOrderItems() {
+                return orderItems;
+        }
+
+        public void setOrderItems(Set<OrderItem> orderItems) {
+                this.orderItems = orderItems;
         }
 }
 

@@ -31,5 +31,4 @@ public class ClientResource {
         List<Client> clients = clientService.findAll();
         return ResponseEntity.ok().body(clients);
     }
-
 }
