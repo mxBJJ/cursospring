@@ -1,8 +1,6 @@
 package com.example.cursospring.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,11 +19,9 @@ public class Order implements Serializable {
         @JsonFormat(pattern="dd/MM/yyyy HH:mm")
         private Date time;
 
-        @JsonManagedReference
         @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
         private Payment payment;
 
-        @JsonBackReference
         @ManyToOne
         @JoinColumn(name = "client_id")
         private Client client;

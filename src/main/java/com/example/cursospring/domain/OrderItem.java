@@ -1,6 +1,8 @@
 package com.example.cursospring.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.util.Objects;
 @Entity
 public class OrderItem implements Serializable {
 
+    @JsonIgnore
     @EmbeddedId
     private OrderItemPK orderItemPK = new OrderItemPK();
 
@@ -32,10 +35,12 @@ public class OrderItem implements Serializable {
         return orderItemPK.getOrder();
     }
 
+    @JsonIgnore
     public Product getProduct(){
         return orderItemPK.getProduct();
     }
 
+    @JsonIgnore
     public OrderItemPK getOrderItemPK() {
         return orderItemPK;
     }

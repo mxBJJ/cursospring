@@ -1,6 +1,6 @@
 package com.example.cursospring.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ public class Product implements Serializable {
    private Double price;
    private String name;
 
-   @JsonBackReference
+   @JsonIgnore
    @ManyToMany
    @JoinTable(name = "produto_categoria",
            joinColumns = @JoinColumn(name = "produto_id"),
@@ -27,6 +27,7 @@ public class Product implements Serializable {
    )
    private List<Category> categories = new ArrayList<>();
 
+   @JsonIgnore
    @OneToMany(mappedBy = "orderItemPK.product")
     private Set<OrderItem> orderItems = new HashSet<>();
 
@@ -39,6 +40,7 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    @JsonIgnore
     public List<Order> getOrders(){
         List<Order> orderList = new ArrayList<>();
 
