@@ -19,14 +19,14 @@ public class ClientResource {
     public ClientService clientService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getClientById(@PathVariable Integer id){
+    public ResponseEntity<Client> getClientById(@PathVariable Integer id){
 
         Client client = clientService.findClientById(id);
         return ResponseEntity.ok().body(client);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getAllClients(){
+    public ResponseEntity<List<Client>> getAllClients(){
 
         List<Client> clients = clientService.findAll();
         return ResponseEntity.ok().body(clients);

@@ -16,7 +16,7 @@ public class CategoryResource {
     private CategoryService categoryService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCategoryById(@PathVariable Integer id){
+    public ResponseEntity<Category> getCategoryById(@PathVariable Integer id){
 
         Category category = categoryService.findCategoriesById(id);
 
@@ -24,7 +24,7 @@ public class CategoryResource {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getCategories(){
+    public ResponseEntity<List<Category>> getCategories(){
 
         List<Category> categories = categoryService.findCategories();
 
