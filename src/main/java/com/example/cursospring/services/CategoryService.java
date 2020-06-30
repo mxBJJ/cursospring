@@ -1,11 +1,14 @@
 package com.example.cursospring.services;
 
 import com.example.cursospring.domain.Category;
+import com.example.cursospring.dto.CategoryDTO;
 import com.example.cursospring.repository.CategoryRepository;
+import com.example.cursospring.services.exception.DataIntegrityViolationException;
 import com.example.cursospring.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,5 +50,18 @@ public class CategoryService {
         }catch(DataIntegrityViolationException exception){
             throw new DataIntegrityViolationException("Can't delete category, because it has products associated.");
         }
+    }
+
+    public Page<Category> findPage(
+            Integer page, Integer linesPerPage,
+            String orderBy, String direction){
+
+        PageRequest pageRequest = PageRequest.of(page,linesPerPage, Sort.Direction.valueOf(direction),orderBy);
+        return categoryRepository.findAll(pageRequest);
+
+    }
+
+    public Category fromDto(CategoryDTO categoryDTO){
+        return new Category(categoryDTO.getId(), categoryDTO.getName());
     }
 }

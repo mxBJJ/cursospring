@@ -1,8 +1,10 @@
 package com.example.cursospring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +16,17 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String name;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
 
-    public Category(Integer id, String name, List<Product> products) {
+    public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.products = products;
     }
 
     public Integer getId() {
