@@ -11,11 +11,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "api/categorias")
+@RequestMapping(value = "/api/categorias")
 public class CategoryResource {
 
     @Autowired
@@ -28,7 +26,7 @@ public class CategoryResource {
         return ResponseEntity.ok().body(category);
     }
 
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<CategoryDTO>> getCategories(
            @RequestParam(value = "page", defaultValue = "0") Integer page,
            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,

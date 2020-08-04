@@ -1,6 +1,7 @@
 package com.example.cursospring.domain;
 
 import com.example.cursospring.domain.enums.ClientType;
+import com.example.cursospring.domain.enums.ProfileType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Client implements Serializable {
@@ -21,6 +23,9 @@ public class Client implements Serializable {
     private String cpfOrCnpj;
     private Integer type;
 
+    @JsonIgnore
+    private String password;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Adress> adresses = new ArrayList<>();
 
@@ -32,15 +37,21 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "profiles")
+    private Set<Integer> profiles = new HashSet<>();
+
     public Client() {
     }
 
-    public Client(Integer id, String name, String email, String cpfOrCnpj, ClientType type) {
+    public Client(Integer id, String name, String email, String cpfOrCnpj, ClientType type,String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpfOrCnpj = cpfOrCnpj;
-        this.type = type.getCod();
+        this.type = (type == null) ? null : type.getCod();
+        this.password = password;
+        addProfile(ProfileType.CLIENT);
     }
 
     public Integer getId() {
@@ -83,6 +94,14 @@ public class Client implements Serializable {
         this.type = type.getCod();
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<Adress> getAdresses() {
         return adresses;
     }
@@ -109,5 +128,13 @@ public class Client implements Serializable {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Set<ProfileType> getProfile(){
+        return profiles.stream().map(x -> ProfileType.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addProfile(ProfileType profileType){
+        profiles.add(profileType.getCod());
     }
 }
