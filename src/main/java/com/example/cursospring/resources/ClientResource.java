@@ -5,6 +5,7 @@ import com.example.cursospring.domain.Client;
 import com.example.cursospring.domain.Client;
 import com.example.cursospring.dto.ClientDTO;
 import com.example.cursospring.dto.ClientDTO;
+import com.example.cursospring.dto.ClientNewDTO;
 import com.example.cursospring.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,22 +53,22 @@ public class ClientResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClientDTO ClientDTO){
-        Client Client = clientService.fromDto(ClientDTO);
-        Client = clientService.insert(Client);
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO clientDTO){
+        Client client = clientService.fromDto(clientDTO);
+        client = clientService.insert(client);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
-                .buildAndExpand(Client.getId()).toUri();
+                .buildAndExpand(client.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> updateClient(@PathVariable Integer id
-            , @RequestBody ClientDTO ClientDTO){
-        Client Client = clientService.fromDto(ClientDTO);
-        Client.setId(id);
-        clientService.update(Client);
+            , @RequestBody ClientNewDTO clientNewDTO){
+        Client client = clientService.fromDto(clientNewDTO);
+        client.setId(id);
+        clientService.update(client);
         return ResponseEntity.noContent().build();
     }
 

@@ -36,17 +36,17 @@ public class UserSS implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
@@ -67,5 +67,9 @@ public class UserSS implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean hasRole(ProfileType perfil) {
+        return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescription()));
     }
 }

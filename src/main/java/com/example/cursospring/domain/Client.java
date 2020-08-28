@@ -42,9 +42,11 @@ public class Client implements Serializable {
     private Set<Integer> profiles = new HashSet<>();
 
     public Client() {
+        addProfile(ProfileType.CLIENT);
     }
 
     public Client(Integer id, String name, String email, String cpfOrCnpj, ClientType type,String password) {
+        super();
         this.id = id;
         this.name = name;
         this.email = email;
