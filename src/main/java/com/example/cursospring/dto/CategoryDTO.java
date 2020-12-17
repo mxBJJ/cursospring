@@ -10,7 +10,7 @@ public class CategoryDTO implements Serializable {
 
     private Integer id;
 
-
+// TESTE DE COMMIT
     @NotEmpty(message = "The category can't be null.")
     @Length(min = 5, max = 80, message = "Category name must have min 5 characteres and max 80.")
     private String name;
